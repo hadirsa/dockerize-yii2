@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+    web:  
+        build: ./
+  
+        ports:
+            - "8085:80"  
+        links:
+            - db 
+
+    db:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+               MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "3306:3306"
+        volumes:
+            - '/srv/docker/mysql/data:/var/lib/mysql' 
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+          - 8091:8080 
+ 
+ 
